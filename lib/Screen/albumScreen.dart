@@ -72,6 +72,7 @@ class AlbumScreen extends StatelessWidget {
                 ),
               ),
       ),
+      
     ));
   }
 }

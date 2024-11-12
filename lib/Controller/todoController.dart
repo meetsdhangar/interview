@@ -7,27 +7,25 @@ import 'package:interview/Model/todoModel.dart';
 class TodoController extends GetxController {
   RxList todolist = [].obs;
   RxList searchlist = [].obs;
-  getTododata() async {
+  gettododata() async {
     var url = 'https://jsonplaceholder.typicode.com/todos';
     var responce = await http.get(Uri.parse(url));
-    print(responce);
-    var decodedata = jsonDecode(responce.body);
-    var list = decodedata.map((t) => Todosmodel.fromMap(t)).toList();
+    var decode = jsonDecode(responce.body);
+    var list = decode.map((m) => Todosmodel.fromMap(m)).toList();
     todolist.clear();
     todolist.addAll(list);
     print(todolist);
   }
 
-  getSearchdata(searchtext) {
-    searchlist.value = [];
-    if (searchtext.isEmpty) {
+  search(text) {
+    if (text.isEmpty) {
       searchlist.value = [];
     } else {
       searchlist.value = todolist.value
           .where((element) => element.title
               .toString()
               .toLowerCase()
-              .startsWith(searchtext.toLowerCase()))
+              .startsWith(text.toLowerCase()))
           .toList();
     }
   }
